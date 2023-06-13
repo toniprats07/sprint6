@@ -28,7 +28,8 @@ const StyledButton = styled.button`
 
 
 const App: React.FC = () => {
-  const [indiceActual, setIndiceActual] = useState(0);
+  const [mostrarBienvenida, setMostrarBienvenida] = useState<boolean>(true);
+  const [indiceActual, setIndiceActual] = useState<number>(0);
 
   const avanzarIndice = () => {
     if (indiceActual < historia.length - 1) {
@@ -42,19 +43,33 @@ const App: React.FC = () => {
     }
   };
 
+  const empezarHistoria = () => {
+    setMostrarBienvenida(false);
+  };
+
   return (
     <div>
-      <ButtonContainer>
-        <StyledButton onClick={retrocederIndice} disabled={indiceActual === 0}>
-          Anterior
-        </StyledButton>
-        <StyledButton onClick={avanzarIndice} disabled={indiceActual === historia.length - 1}>
-          Següent
-        </StyledButton>
-      </ButtonContainer>
-      {historia.map((linea: string, index: number) => (
-        <Escena key={index} texto={linea} resaltado={index === indiceActual} />
-      ))}
+        {mostrarBienvenida ? (
+          <div>
+            <h1>Benvingut al projecte de la historia</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ipsa provident eaque ipsum laudantium culpa laboriosam vero ab. Iure fugiat nemo magni similique iste quaerat facilis commodi fuga velit eligendi.</p>
+            <button onClick={empezarHistoria}>Començar</button>
+          </div>
+        ) : (
+      <div>
+        <ButtonContainer>
+          <StyledButton onClick={retrocederIndice} disabled={indiceActual === 0}>
+            Anterior
+          </StyledButton>
+          <StyledButton onClick={avanzarIndice} disabled={indiceActual === historia.length - 1}>
+            Següent
+          </StyledButton>
+        </ButtonContainer>
+        {historia.map((linea: string, index: number) => (
+          <Escena key={index} texto={linea} resaltado={index === indiceActual} />
+        ))}
+      </div>
+      )}
     </div>
   );
 };
