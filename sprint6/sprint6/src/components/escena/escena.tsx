@@ -1,22 +1,25 @@
 import React from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface EscenaProps {
-    texto: string;
-  }
+  texto: string;
+  resaltado?: boolean;
+}
 
-const StyledEscena = styled.p`
-    font-size: 18px;
-    text-align: center;
-    border-radius: 30px;
-    border: 2px solid black;
-    color: black;
-    padding: 1em;
-    margin: 20px;
+const StyledEscena = styled.p<{ resaltado?: boolean }>`
+  font-size: 18px;
+  text-align: center;
+  border-radius: 30px;
+  border: 2px solid black;
+  color: ${({ resaltado }) => (resaltado ? 'black' : 'black')};
+  background-color: ${({ resaltado }) => (resaltado ? 'salmon' : 'transparent')};
+  padding: 1em;
+  margin: 20px;
 `;
-  
-  const Escena: React.FC<EscenaProps> = ({texto}) => {
-    return <StyledEscena>{texto}</StyledEscena>;
-  };
-  
-  export default Escena;
+
+const Escena: React.FC<EscenaProps> = ({ texto, resaltado }) => {
+  return <StyledEscena resaltado={resaltado}>{texto}</StyledEscena>;
+};
+
+export default Escena;
+
